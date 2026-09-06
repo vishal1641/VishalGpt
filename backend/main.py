@@ -25,7 +25,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "http://127.0.0.1:3000",
-        https://vishal-gpt-nu.vercel.app/
+        "https://vishal-gpt-nu.vercel.app"
     ],
 
     allow_credentials=True,
@@ -34,7 +34,6 @@ app.add_middleware(
 
     allow_headers=["*"],
 )
-
 
 # =========================
 # LOAD RESUME
