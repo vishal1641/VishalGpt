@@ -1,10 +1,13 @@
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from fastapi.responses import FileResponse
 
 from pdf_reader import extract_text_from_pdf
 from chatbot import ask_vishalgpt
-from fastapi.responses import FileResponse
+
 
 # =========================
 # APP
@@ -35,11 +38,26 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+# =========================
+# FILE PATH
+# =========================
+
+BASE_DIR = Path(__file__).resolve().parent
+
+resume_path = BASE_DIR / "Vishal_Kumar_Tiwari_Resume.pdf"
+
+
 # =========================
 # LOAD RESUME
 # =========================
 
-resume_path = "Vishal_Kumar_Tiwari_Resume.pdf"
+if not resume_path.exists():
+
+    raise FileNotFoundError(
+        f"Resume not found at: {resume_path}"
+    )
+
 
 resume_text = extract_text_from_pdf(
     resume_path
@@ -48,10 +66,8 @@ resume_text = extract_text_from_pdf(
 
 print("Resume loaded successfully.")
 print("--------------------------------")
-print(
-    "Resume characters:",
-    len(resume_text)
-)
+print("Resume path:", resume_path)
+print("Resume characters:", len(resume_text))
 print("--------------------------------")
 
 
@@ -93,10 +109,15 @@ def chat(request: ChatRequest):
     }
 
 
+# =========================
+# DOWNLOAD RESUME
+# =========================
+
 @app.get("/download-resume")
 def download_resume():
+
     return FileResponse(
-        path="resume.pdf",
+        path=resume_path,
         media_type="application/pdf",
         filename="Vishal_Resume.pdf"
     )
