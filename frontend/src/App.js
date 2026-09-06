@@ -192,7 +192,7 @@ function App() {
       // CALL FASTAPI
       // ==================================
 
-      const response = await fetch("http://127.0.0.1:8000/chat", {
+      const response = await fetch("https://vishalgpt.onrender.com//chat", {
         method: "POST",
 
         headers: {
@@ -413,7 +413,7 @@ function App() {
           <span>New chat</span>
         </button>
         <a
-          href="http://127.0.0.1:8000/download-resume"
+          href="https://vishalgpt.onrender.com/download-resume"
           className="download-resume"
           target="_blank"
           rel="noopener noreferrer"
