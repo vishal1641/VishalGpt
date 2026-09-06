@@ -192,7 +192,7 @@ function App() {
       // CALL FASTAPI
       // ==================================
 
-      const response = await fetch("https://vishalgpt.onrender.com//chat", {
+      const response = await fetch("https://vishalgpt.onrender.com/chat", {
         method: "POST",
 
         headers: {
